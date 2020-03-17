@@ -1,22 +1,26 @@
 import React, { Component } from 'react';
 import covidDataApi from 'jhucsse.covid';
 import { AppFooter } from './Footer'
-import { GlobeChart } from './globeChart';
-import { BarChart } from './barChart';
-import { Layout } from 'antd';
+import { Layout, Spin } from 'antd';
 import './App.css';
-import { HistoryChart } from './Charts/History';
-import { EvolutionChart } from './Charts/Evolution';
-
-const { Header, Footer, Content } = Layout;
+import { AppHeader } from './Header';
+import { AppContent } from './Content/Content';
 
 class App extends Component {
-  state = { data: {}, selectedData: [] }
+  state = { data: {}, selectedData: [], totalData: {}, loaded: false }
 
   onCountriesSelected = (selectedCountries) => {
     this.setState({
       selectedData: selectedCountries.map(country => this.state.data[country])
     });
+  }
+
+  getTotalData(covidData) {
+    return {
+      confirmed: covidData.confirmed.latest,
+      deaths: covidData.deaths.latest,
+      recovered: covidData.recovered.latest
+    }
   }
 
   parseData(covidData) {
@@ -62,26 +66,27 @@ class App extends Component {
   componentDidMount() {
     covidDataApi.all()
       .then(covidData => {
-        this.setState({ data: this.parseData(covidData) });
-        // this.setState({
-        //   globeData: covidData.confirmed.locations.filter(location => location.latest > 0),
-        //   barData: this.getCasesByCountry(covidData)
-        // })
+        this.setState({ 
+          data: this.parseData(covidData),
+          totalData: this.getTotalData(covidData),
+          loaded: true
+        });
       });
   }
 
   render() {
     return (
-      <Layout className="App">
-        <Header>Header</Header>
-        <Content>
-          <div className="mainContent">
-            <HistoryChart data={this.state.selectedData} />
-            <EvolutionChart data={this.state.selectedData} />
-          </div>
-        </Content>
-        <AppFooter countries={Object.values(this.state.data)} onChange={this.onCountriesSelected} />
-      </Layout>
+      <div className="App">
+        {
+          !this.state.loaded ?
+            <Spin className="spinner-container" /> :
+            <Layout className="App">
+              <AppHeader />
+              <AppContent selectedData={this.state.selectedData} totalData={this.state.totalData} />
+              <AppFooter countries={Object.values(this.state.data)} onChange={this.onCountriesSelected} />
+            </Layout>
+        }
+      </div>
     );
   }
 }

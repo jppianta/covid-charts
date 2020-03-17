@@ -1,55 +1,50 @@
 @import '~antd/dist/antd.css';
 
-html, body, #root {
+html, body, #root, .App {
+  height: 100%;
+}
+
+.ant-card-body {
   height: 100%;
 }
 
 .container {
-  flex: 1;
+  height: 100%;
   display: flex;
   max-width: 100%;
+}
+
+.header {
+  background-color: #b2ebf2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-title {
+  flex: 1;
 }
 
 .mainContent {
   height: 100%;
   display: flex;
-}
-
-.App {
-  height: 100%;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
   flex-direction: column;
-  align-items: center;
+  padding: 20px;
+}
+
+.chartsContainer {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(650px, 1fr));
+  text-align: center;
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+.spinner-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  align-items: center;
 }

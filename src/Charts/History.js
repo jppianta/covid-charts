@@ -26,7 +26,6 @@ export class HistoryChart extends Component {
 
   componentDidUpdate() {
     const data = this.parseData(this.props.data);
-    console.log(data);
     this.chart.changeData(data);
 
     this.chart
@@ -60,7 +59,6 @@ export class HistoryChart extends Component {
     const element = document.getElementById('containerHistory')
     this.chart = new Chart({
       container: element,
-      autoFit: true,
       height: element.offsetHeight - 10,
       padding: 50,
       renderer: 'svg'
@@ -94,6 +92,7 @@ export class HistoryChart extends Component {
       .shape('circle');
 
     this.chart.render();
+    this.updateChartSize();
   }
 
   render() {

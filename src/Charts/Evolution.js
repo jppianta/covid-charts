@@ -48,7 +48,6 @@ export class EvolutionChart extends Component {
 
   componentDidUpdate() {
     const data = this.parseData(this.props.data);
-    console.log(data);
     this.chart.changeData(data);
 
     this.chart
@@ -74,7 +73,6 @@ export class EvolutionChart extends Component {
     this.chart = new Chart({
       container: element,
       height: element.offsetHeight - 10,
-      autoFit: true,
       padding: 50,
       renderer: 'svg'
     });
@@ -108,6 +106,7 @@ export class EvolutionChart extends Component {
       .shape('circle');
 
     this.chart.render();
+    this.updateChartSize();
   }
 
   render() {
