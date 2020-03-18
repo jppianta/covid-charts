@@ -13,7 +13,7 @@ export class EvolutionChart extends Component {
 
   updateChartSize = () => {
     const element = document.getElementById('containerEvolution')
-    this.chart.changeSize(element.offsetWidth - 10, element.offsetHeight - 10)
+    this.chart.changeSize(element.offsetWidth - 10, element.offsetHeight >= 400 ? element.offsetHeight - 10 : 400)
   }
 
   parseData(data) {
@@ -72,7 +72,7 @@ export class EvolutionChart extends Component {
     const element = document.getElementById('containerEvolution')
     this.chart = new Chart({
       container: element,
-      height: element.offsetHeight - 10,
+      height: element.offsetHeight >= 400 ? element.offsetHeight - 10 : 400,
       padding: 50,
       renderer: 'svg'
     });
