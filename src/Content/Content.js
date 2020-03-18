@@ -1,38 +1,51 @@
 import React, { Component } from 'react';
 import { HistoryChart } from '../Charts/History';
 import { EvolutionChart } from '../Charts/Evolution';
-import { Layout, Row, Col, Statistic, Card } from 'antd';
+import { Layout, Statistic, Card } from 'antd';
 
 const { Content } = Layout;
 
 export class AppContent extends Component {
+  getTop4(data) {
+    data = Object.values(data);
+    data.sort((a, b) => b.confirmed.cases - a.confirmed.cases);
+    return data.slice(0, 4);
+  }
+
+  parseDate(date) {
+    date = new Date(date);
+    return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
+  }
+
   render() {
+    const mostCases = this.getTop4(this.props.data);
+    console.log(mostCases);
     return (
-      <Content>
+      <Content className="mainContainer">
         <div className="mainContent">
-          <div className="statsContainer">
-            <Card title="Global Stats">
-              <Row style={{margin: 0}}>
-                <Col span={8}>
-                  <Statistic title="Confirmed" value={this.props.totalData.confirmed} />
-                </Col>
-                <Col span={8}>
-                  <Statistic title="Deaths" value={this.props.totalData.deaths} />
-                </Col>
-                <Col span={8}>
-                  <Statistic title="Recovered" value={this.props.totalData.recovered} />
-                </Col>
-              </Row>
-            </Card>
-          </div>
-          <div className="chartsContainer">
-            <Card size="small">
-              <HistoryChart data={this.props.selectedData} />
-            </Card>
-            <Card size="small">
-              <EvolutionChart data={this.props.selectedData} />
-            </Card>
-          </div>
+          <Card size="small" title="Global Stats">
+            <div className="statsContainer">
+              <Statistic title="Confirmed" value={this.props.totalData.confirmed.cases} />
+              <Statistic title="Deaths" value={this.props.totalData.deaths.cases} />
+              <Statistic title="Recovered" value={this.props.totalData.recovered.cases} />
+              <Statistic title="Updated" value={this.parseDate(this.props.totalData.confirmed.updated)} />
+            </div>
+          </Card>
+          <Card size="small" title="Top Countries">
+            <div className="statsContainer">
+              {
+                mostCases.map(country =>
+                  <Statistic key={country.name} title={country.name} value={country.confirmed.cases} />
+                )
+              }
+            </div>
+          </Card>
+          <Card size="small">
+            <HistoryChart data={this.props.selectedData} />
+          </Card>
+          <Card size="small">
+            <EvolutionChart data={this.props.selectedData} />
+          </Card>
         </div>
       </Content>
     )

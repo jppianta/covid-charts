@@ -63,6 +63,7 @@ export class EvolutionChart extends Component {
       .shape('circle');
 
     this.chart.tooltip({ showTitle: false })
+    this.chart.render();
 
     this.updateChartSize();
   }

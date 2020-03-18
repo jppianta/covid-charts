@@ -17,9 +17,9 @@ class App extends Component {
 
   getTotalData(covidData) {
     return {
-      confirmed: covidData.confirmed.latest,
-      deaths: covidData.deaths.latest,
-      recovered: covidData.recovered.latest
+      confirmed: { cases: covidData.confirmed.latest, updated: covidData.confirmed.last_updated },
+      deaths: { cases: covidData.deaths.latest, updated: covidData.deaths.last_updated },
+      recovered: { cases: covidData.recovered.latest, updated: covidData.recovered.last_updated }
     }
   }
 
@@ -66,7 +66,8 @@ class App extends Component {
   componentDidMount() {
     covidDataApi.all()
       .then(covidData => {
-        this.setState({ 
+        console.log(covidData);
+        this.setState({
           data: this.parseData(covidData),
           totalData: this.getTotalData(covidData),
           loaded: true
@@ -82,7 +83,7 @@ class App extends Component {
             <Spin className="spinner-container" /> :
             <Layout className="App">
               <AppHeader />
-              <AppContent selectedData={this.state.selectedData} totalData={this.state.totalData} />
+              <AppContent data={this.state.data} selectedData={this.state.selectedData} totalData={this.state.totalData} />
               <AppFooter countries={Object.values(this.state.data)} onChange={this.onCountriesSelected} />
             </Layout>
         }

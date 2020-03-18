@@ -40,7 +40,8 @@ export class HistoryChart extends Component {
       .color('country')
       .shape('circle');
 
-    this.chart.tooltip({ showTitle: false })
+    this.chart.tooltip({ showTitle: false });
+    this.chart.render();
 
     this.updateChartSize();
   }
