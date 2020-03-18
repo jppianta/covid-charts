@@ -35,10 +35,18 @@ html, body, #root, .App {
 .chartsContainer {
   flex: 1;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(650px, 1fr));
+  grid-template-columns: 1fr 1fr;
   text-align: center;
-  max-height: 100%;
-  overflow-y: auto;
+}
+
+@media only screen and (max-width: 600px) {
+  .chartsContainer {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr;
+    overflow-y: auto;
+    text-align: center;
+  }
 }
 
 .spinner-container {
