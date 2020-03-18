@@ -42,15 +42,6 @@ export class HistoryChart extends Component {
 
     this.chart.tooltip({ showTitle: false })
 
-    this.chart.axis('date', {
-      label: {
-        formatter: (val) => {
-          const date = new Date(Number(val));
-          return this.parseDate(date);
-        }
-      }
-    })
-
     this.updateChartSize();
   }
 
@@ -60,7 +51,6 @@ export class HistoryChart extends Component {
     this.chart = new Chart({
       container: element,
       height: element.offsetHeight >= 400 ? element.offsetHeight - 10 : 400,
-      padding: 50,
       renderer: 'svg'
     });
     this.chart.tooltip({ showTitle: false })
@@ -77,6 +67,38 @@ export class HistoryChart extends Component {
     this.chart.tooltip({
       showCrosshairs: true,
       shared: true,
+    });
+
+    this.chart.scale('date', {
+      alias: 'Date (mm/dd/yyyy)'
+    });
+
+    this.chart.axis('date', {
+      label: {
+        formatter: (val) => {
+          const date = new Date(Number(val));
+          return this.parseDate(date);
+        }
+      },
+      title: {
+        offset: 20,
+        style: {
+          fill: '#aaa'
+        }
+      }
+    });
+
+    this.chart.scale('cases', {
+      alias: 'Number of cases'
+    });
+
+    this.chart.axis('cases', {
+      title: {
+        offset: 20,
+        style: {
+          fill: '#aaa'
+        }
+      }
     });
 
     this.chart

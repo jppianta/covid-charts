@@ -73,15 +73,14 @@ export class EvolutionChart extends Component {
     this.chart = new Chart({
       container: element,
       height: element.offsetHeight >= 400 ? element.offsetHeight - 10 : 400,
-      padding: 50,
       renderer: 'svg'
     });
     this.chart.tooltip({ showTitle: false })
     this.chart.data(this.parseData(this.props.data));
     this.chart.scale({
       time: {
-       sync: true,
-       min: 0
+        sync: true,
+        min: 0
       },
       cases: {
         nice: true,
@@ -91,6 +90,32 @@ export class EvolutionChart extends Component {
     this.chart.tooltip({
       showCrosshairs: true,
       shared: true,
+    });
+
+    this.chart.scale('time', {
+      alias: 'Days since the first case'
+    });
+
+    this.chart.axis('time', {
+      title: {
+        offset: 20,
+        style: {
+          fill: '#aaa'
+        }
+      }
+    });
+
+    this.chart.scale('cases', {
+      alias: 'Number of cases'
+    });
+
+    this.chart.axis('cases', {
+      title: {
+        offset: 20,
+        style: {
+          fill: '#aaa'
+        }
+      }
     });
 
     this.chart

@@ -26,10 +26,10 @@ export class AppContent extends Component {
             </Card>
           </div>
           <div className="chartsContainer">
-            <Card>
+            <Card size="small">
               <HistoryChart data={this.props.selectedData} />
             </Card>
-            <Card>
+            <Card size="small">
               <EvolutionChart data={this.props.selectedData} />
             </Card>
           </div>
