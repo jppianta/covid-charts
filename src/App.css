@@ -6,6 +6,7 @@ html, body, #root, .App {
 
 .ant-card-body {
   display: flex;
+  height: calc(100% - 39px);
 }
 
 .header {
