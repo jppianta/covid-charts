@@ -42,10 +42,6 @@ export class EvolutionChart extends Component {
     return [].concat.apply([], values);
   }
 
-  parseDate(date) {
-    return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
-  }
-
   componentDidUpdate() {
     const data = this.parseData(this.props.data);
     this.chart.changeData(data);
@@ -62,7 +58,16 @@ export class EvolutionChart extends Component {
       .color('country')
       .shape('circle');
 
-    this.chart.tooltip({ showTitle: false })
+    this.chart.tooltip({ showTitle: false });
+
+    const highestNumberOfCases = data.length > 0 ? data[data.length - 1].cases : 0;
+
+    this.chart.scale('cases', {
+      alias: 'Number of cases',
+      min: 0,
+      max: highestNumberOfCases + 0.2 * highestNumberOfCases
+    });
+
     this.chart.render();
 
     this.updateChartSize();

@@ -1,27 +1,45 @@
 import React, { Component } from 'react';
 import { Chart } from '@antv/g2';
 
-export class HistoryChart extends Component {
+export class LogEvolutionChart extends Component {
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateChartSize)
   }
 
+  daysBetweenDates(date1, date2) {
+    const timeBetween = date2.getTime() - date1.getTime();
+    return timeBetween / (1000 * 60 * 60 * 24);
+  }
+
   updateChartSize = () => {
-    const element = document.getElementById('containerHistory')
+    const element = document.getElementById('containerLogEvolution')
     this.chart.changeSize(element.offsetWidth - 10, element.offsetHeight >= 400 ? element.offsetHeight - 10 : 400)
   }
 
   parseData(data) {
     const values = data.map(country => {
-      return Object.keys(country.confirmed.history).map(date => (
-        { country: country.name, date: new Date(date), cases: country.confirmed.history[date] }
+      const historyKeys = Object.keys(country.confirmed.history).filter(date => country.confirmed.history[date] > 0);
+      historyKeys.sort(function (a, b) {
+        a = new Date(a);
+        b = new Date(b);
+        return a.getTime() - b.getTime();
+      });
+      const firstDay = new Date(historyKeys[0]);
+      return historyKeys.map((date, index) => (
+        index === 0 ?
+          {
+            country: country.name,
+            time: 0,
+            cases: Math.log(country.confirmed.history[date])
+          } :
+          {
+            country: country.name,
+            time: this.daysBetweenDates(firstDay, new Date(date)),
+            cases: Math.log(country.confirmed.history[date])
+          }
       ));
     });
     return [].concat.apply([], values);
-  }
-
-  parseDate(date) {
-    return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
   }
 
   componentDidUpdate() {
@@ -30,25 +48,19 @@ export class HistoryChart extends Component {
 
     this.chart
       .line()
-      .position('date*cases')
+      .position('time*cases')
       .color('country')
       .shape('smooth');
 
     this.chart
       .point()
-      .position('date*cases')
+      .position('time*cases')
       .color('country')
       .shape('circle');
 
-    this.chart.tooltip({ showTitle: false });
+    this.chart.tooltip({ showTitle: false })
 
-    let highestNumberOfCases = 0;
-
-    data.forEach(d => {
-      highestNumberOfCases = d.cases > highestNumberOfCases ? d.cases : highestNumberOfCases;
-    });
-
-    console.log(highestNumberOfCases)
+    const highestNumberOfCases = data.length > 0 ? data[data.length - 1].cases : 0;
 
     this.chart.scale('cases', {
       alias: 'Number of cases',
@@ -63,17 +75,19 @@ export class HistoryChart extends Component {
 
   componentDidMount() {
     window.addEventListener('resize', this.updateChartSize)
-    const element = document.getElementById('containerHistory')
+    const element = document.getElementById('containerLogEvolution')
     this.chart = new Chart({
       container: element,
       height: element.offsetHeight >= 400 ? element.offsetHeight - 10 : 400,
       renderer: 'svg'
     });
     this.chart.tooltip({ showTitle: false })
-    this.chart.data(this.parseData(this.props.data));
+    const data = this.parseData(this.props.data);
+    this.chart.data(data);
     this.chart.scale({
-      date: {
-        range: [0, 1],
+      time: {
+        sync: true,
+        min: 0
       },
       cases: {
         nice: true,
@@ -85,17 +99,11 @@ export class HistoryChart extends Component {
       shared: true,
     });
 
-    this.chart.scale('date', {
-      alias: 'Date (mm/dd/yyyy)'
+    this.chart.scale('time', {
+      alias: 'Days since the first case'
     });
 
-    this.chart.axis('date', {
-      label: {
-        formatter: (val) => {
-          const date = new Date(Number(val));
-          return this.parseDate(date);
-        }
-      },
+    this.chart.axis('time', {
       title: {
         offset: 20,
         style: {
@@ -119,13 +127,13 @@ export class HistoryChart extends Component {
 
     this.chart
       .line()
-      .position('date*cases')
+      .position('time*cases')
       .color('country')
       .shape('smooth');
 
     this.chart
       .point()
-      .position('date*cases')
+      .position('time*cases')
       .color('country')
       .shape('circle');
 
@@ -135,7 +143,7 @@ export class HistoryChart extends Component {
 
   render() {
     return (
-      <div id="containerHistory" className="container" />
+      <div id="containerLogEvolution" className="container" />
     );
   }
 }

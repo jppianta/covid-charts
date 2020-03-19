@@ -23,7 +23,7 @@ class App extends Component {
     }
   }
 
-  parseData(covidData) {
+  parseDataByCountry(covidData) {
     const countries = {};
     function mergeHistory(history1, history2) {
       Object.keys(history2).forEach(key => history1[key] = (history1[key] || 0) + history2[key])
@@ -66,9 +66,8 @@ class App extends Component {
   componentDidMount() {
     covidDataApi.all()
       .then(covidData => {
-        console.log(covidData);
         this.setState({
-          data: this.parseData(covidData),
+          data: this.parseDataByCountry(covidData),
           totalData: this.getTotalData(covidData),
           loaded: true
         });

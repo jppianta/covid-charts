@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { HistoryChart } from '../Charts/History';
 import { EvolutionChart } from '../Charts/Evolution';
 import { Layout, Statistic, Card } from 'antd';
+import { BarCasesChart } from '../Charts/BarCases';
+import { LogEvolutionChart } from '../Charts/LogEvolution';
 
 const { Content } = Layout;
 
@@ -19,7 +21,6 @@ export class AppContent extends Component {
 
   render() {
     const mostCases = this.getTop4(this.props.data);
-    console.log(mostCases);
     return (
       <Content className="mainContainer">
         <div className="mainContent">
@@ -45,6 +46,12 @@ export class AppContent extends Component {
           </Card>
           <Card title="Evolution" size="small">
             <EvolutionChart data={this.props.selectedData} />
+          </Card>
+          <Card title="Cases Bar" size="small">
+            <BarCasesChart data={this.props.selectedData} />
+          </Card>
+          <Card title="Logarithmic Evolution" size="small">
+            <LogEvolutionChart data={this.props.selectedData} />
           </Card>
         </div>
       </Content>
