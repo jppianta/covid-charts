@@ -64,7 +64,6 @@ export class LogEvolutionChart extends Component {
 
     this.chart.scale('cases', {
       alias: 'Number of cases',
-      min: 0,
       max: highestNumberOfCases + 0.2 * highestNumberOfCases
     });
 
