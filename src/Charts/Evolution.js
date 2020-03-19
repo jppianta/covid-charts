@@ -60,7 +60,11 @@ export class EvolutionChart extends Component {
 
     this.chart.tooltip({ showTitle: false });
 
-    const highestNumberOfCases = data.length > 0 ? data[data.length - 1].cases : 0;
+    let highestNumberOfCases = 0;
+
+    data.forEach(d => {
+      highestNumberOfCases = d.cases > highestNumberOfCases ? d.cases : highestNumberOfCases;
+    });
 
     this.chart.scale('cases', {
       alias: 'Number of cases',

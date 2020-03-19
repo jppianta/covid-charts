@@ -48,8 +48,6 @@ export class HistoryChart extends Component {
       highestNumberOfCases = d.cases > highestNumberOfCases ? d.cases : highestNumberOfCases;
     });
 
-    console.log(highestNumberOfCases)
-
     this.chart.scale('cases', {
       alias: 'Number of cases',
       max: highestNumberOfCases + 0.2 * highestNumberOfCases
