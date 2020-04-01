@@ -66,7 +66,15 @@ export class StatsContent extends Component {
 
   parseDate(date) {
     date = new Date(date);
-    return `${date.getHours()}:${date.getMinutes()}, ${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
+    return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()} ${this.parseTime(date)}`
+  }
+
+  parseTime(date) {
+    function add0(time) {
+      time = String(time);
+      return time.length === 1 ? "0" + time : time
+    }
+    return `${add0(date.getHours())}:${add0(date.getMinutes())}`
   }
 
   render() {
