@@ -81,14 +81,16 @@ export class StatsContent extends Component {
           </div>
         </Card>
         <div className="countriesRow">
-          <Table
-            className="countriesTable"
-            dataSource={this.state.data.byCountry}
-            columns={this.tableColumns}
-            pagination={false}
-            size="middle"
-          />
-          <Card size="small" title="Countries with most Confirmed Cases">
+          <Card className="countriesTableContainer" size="small" title="Cases by Country">
+            <Table
+              className="countriesTable"
+              dataSource={this.state.data.byCountry}
+              columns={this.tableColumns}
+              pagination={false}
+              size="middle"
+            />
+          </Card>
+          <Card size="small" title="Countries with most Confirmed Cases" >
             <div className="topCountries">
               {
                 this.getTop6(this.state.data.byCountry).map(country =>

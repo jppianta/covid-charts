@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { AppFooter } from './Footer'
 import { Layout } from 'antd';
 import './App.css';
 import { AppHeader } from './Header';

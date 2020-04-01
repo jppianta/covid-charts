@@ -15,7 +15,7 @@ export class ChartsContent extends Component {
     this.state = {
       data: {},
       countryNames: [],
-      selectedData: []
+      selectedCountries: []
     }
   }
 
@@ -38,12 +38,12 @@ export class ChartsContent extends Component {
       // names must be equal
       return 0;
     });
-    this.setState({ countryNames, data: data.byCountry })
+    this.setState({ countryNames, data: data.byCountry, selectedCountries: ['Spain', 'Italy'] })
   }
 
   onCountriesSelected = (selectedCountries) => {
     this.setState({
-      selectedData: selectedCountries.map(country => this.state.data[country])
+      selectedCountries
     });
   }
 
@@ -56,7 +56,7 @@ export class ChartsContent extends Component {
             mode="multiple"
             style={{ flex: 1 }}
             placeholder="Countries"
-            defaultValue={[]}
+            defaultValue={['Spain', 'Italy']}
             onChange={this.onCountriesSelected}
           >
             {
@@ -66,16 +66,16 @@ export class ChartsContent extends Component {
         </div>
         <div className="chartsContainer">
           <Card title="History" size="small">
-            <HistoryChart data={this.state.selectedData} />
+            <HistoryChart data={this.state.selectedCountries.map(country => this.state.data[country])} />
           </Card>
           <Card title="Evolution" size="small">
-            <EvolutionChart data={this.state.selectedData} />
+            <EvolutionChart data={this.state.selectedCountries.map(country => this.state.data[country])} />
           </Card>
           <Card title="Cases Bar" size="small">
-            <BarCasesChart data={this.state.selectedData} />
+            <BarCasesChart data={this.state.selectedCountries.map(country => this.state.data[country])} />
           </Card>
           <Card title="Logarithmic Evolution" size="small">
-            <LogEvolutionChart data={this.state.selectedData} />
+            <LogEvolutionChart data={this.state.selectedCountries.map(country => this.state.data[country])} />
           </Card>
         </div>
       </div>
