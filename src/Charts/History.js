@@ -34,12 +34,6 @@ export class HistoryChart extends Component {
       .color('country')
       .shape('smooth');
 
-    this.chart
-      .point()
-      .position('date*cases')
-      .color('country')
-      .shape('circle');
-
     this.chart.tooltip({ showTitle: false });
 
     let highestNumberOfCases = 0;
@@ -113,18 +107,6 @@ export class HistoryChart extends Component {
         }
       }
     });
-
-    this.chart
-      .line()
-      .position('date*cases')
-      .color('country')
-      .shape('smooth');
-
-    this.chart
-      .point()
-      .position('date*cases')
-      .color('country')
-      .shape('circle');
 
     this.chart.render();
     this.updateChartSize();

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Layout, Modal, Button } from 'antd';
-import { InfoOutlined } from '@ant-design/icons'
+import { InfoOutlined } from '@ant-design/icons';
+import covidLogo from './Assets/Covid-19-Charts.png';
 
 const { Header } = Layout;
 
@@ -21,12 +22,14 @@ export class AppHeader extends Component {
   render() {
     return (
       <Header className="header">
-        <div className="header-title">
-          Covid-19 Charts
+        <div className="headerContainer">
+          <div className="logoContainer">
+            <img className="header-title" src={covidLogo} alt="Covid Logo" />
+          </div>
+          <Button type="default" shape="circle" onClick={this.info}>
+            <InfoOutlined />
+          </Button>
         </div>
-        <Button type="default" shape="circle" onClick={this.info}>
-          <InfoOutlined />
-        </Button>
       </Header>
     )
   }

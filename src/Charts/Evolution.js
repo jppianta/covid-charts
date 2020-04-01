@@ -52,11 +52,6 @@ export class EvolutionChart extends Component {
       .color('country')
       .shape('smooth');
 
-    this.chart
-      .point()
-      .position('time*cases')
-      .color('country')
-      .shape('circle');
 
     this.chart.tooltip({ showTitle: false });
 
@@ -126,18 +121,6 @@ export class EvolutionChart extends Component {
         }
       }
     });
-
-    this.chart
-      .line()
-      .position('time*cases')
-      .color('country')
-      .shape('smooth');
-
-    this.chart
-      .point()
-      .position('time*cases')
-      .color('country')
-      .shape('circle');
 
     this.chart.render();
     this.updateChartSize();

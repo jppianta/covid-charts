@@ -1,7 +1,14 @@
 @import '~antd/dist/antd.css';
-
 html, body, #root, .App {
   height: 100%;
+}
+
+.App {
+  font-family: 'Sen', sans-serif;
+}
+
+.ant-modal-content {
+  border-radius: 16px;
 }
 
 .ant-card-body {
@@ -9,15 +16,19 @@ html, body, #root, .App {
   height: calc(100% - 39px);
 }
 
+.ant-card-bordered {
+  border-radius: 16px;
+}
+
 .header {
-  background-color: #b2ebf2;
+  background-color: #fafafa;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .header-title {
-  flex: 1;
+  height: 100%;
 }
 
 .container {
@@ -27,33 +38,34 @@ html, body, #root, .App {
 .statsContainer {
   flex: 1;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(4, 1fr);
 }
 
 .mainContainer {
   display: flex;
   justify-content: center;
-  padding: 20px 0;
+  padding: 10px;
+  overflow-y: auto;
 }
 
 .mainContent {
   flex: 1;
   max-width: 1200px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  overflow-y: auto;
-  grid-gap: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-@media only screen and (max-width: 600px) {
-  .mainContent {
-    height: 100%;
-    padding: 20px;
-    display: grid;
-    grid-template-columns: 1fr;
-    overflow-y: auto;
-    grid-gap: 5px;
-  }
+.chartsContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+}
+
+.chartsContent {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 20px;
 }
 
 .spinner-container {
@@ -62,4 +74,80 @@ html, body, #root, .App {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.statsContent {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
+
+.countriesSelector {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  gap: 10px;
+}
+
+.countriesSelector>* {
+  flex: 1;
+}
+
+.ant-statistic-content {
+  font-weight: 600;
+}
+
+.countriesRow {
+  flex: 1;
+  gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.countriesSelector>span {
+  flex: none;
+  max-width: 50%;
+}
+
+.countriesTable {
+  max-height: 450px;
+  overflow-y: auto;
+  border-radius: 16px;
+}
+
+.topCountries {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.headerContainer {
+  height: 100%;
+  flex: 1;
+  display: flex;
+  max-width: 1200px;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.logoContainer {
+  height: 100%;
+  flex: 1;
+}
+
+@media only screen and (max-width: 700px) {
+  .chartsContainer {
+    grid-template-columns: 1fr;
+  }
+  .statsContainer {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .countriesRow {
+    grid-template-columns: 1fr;
+  }
+  .updateTime .ant-statistic-content-value {
+    font-size: 18px;
+  }
 }

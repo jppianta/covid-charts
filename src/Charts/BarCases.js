@@ -97,13 +97,6 @@ export class BarCasesChart extends Component {
       showMarkers: false,
     });
 
-    this.chart
-      .interval()
-      .adjust('stack')
-      .position('name*cases')
-      .color('country');
-
-    this.chart.interaction('active-region');
 
     this.chart.render();
 

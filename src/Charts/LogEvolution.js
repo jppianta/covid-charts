@@ -52,12 +52,6 @@ export class LogEvolutionChart extends Component {
       .color('country')
       .shape('smooth');
 
-    this.chart
-      .point()
-      .position('time*cases')
-      .color('country')
-      .shape('circle');
-
     this.chart.tooltip({ showTitle: false })
 
     let highestNumberOfCases = 0;
@@ -128,19 +122,6 @@ export class LogEvolutionChart extends Component {
       }
     });
 
-    this.chart
-      .line()
-      .position('time*cases')
-      .color('country')
-      .shape('smooth');
-
-    this.chart
-      .point()
-      .position('time*cases')
-      .color('country')
-      .shape('circle');
-
-    this.chart.render();
     this.updateChartSize();
   }
 
