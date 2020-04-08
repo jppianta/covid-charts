@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Layout, Spin } from 'antd';
 import { ChartsContent } from './ChartsContent';
 import { StatsContent } from './StatsContent';
-import { dataManager } from '../DataManager';
-import { AppFooter } from '../Footer';
+import { dataManager } from '../Data/DataManager';
+import { AppFooter } from '../Components/Footer';
 
 const { Content } = Layout;
 

@@ -1,0 +1,24 @@
+.header {
+  background-color: #eeeeee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .headerContainer {
+    height: 100%;
+    flex: 1;
+    display: flex;
+    max-width: 1200px;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+
+    .logoContainer {
+      height: 100%;
+
+      .header-title {
+        height: 100%;
+      }
+    }
+  }
+}

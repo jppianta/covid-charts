@@ -4,7 +4,7 @@ import { EvolutionChart } from '../Charts/Evolution';
 import { Card, Select } from 'antd';
 import { BarCasesChart } from '../Charts/BarCases';
 import { LogEvolutionChart } from '../Charts/LogEvolution';
-import { dataManager } from '../DataManager';
+import { dataManager } from '../Data/DataManager';
 
 const { Option } = Select;
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Statistic, Card, Table } from 'antd';
-import { dataManager } from '../DataManager';
+import { dataManager } from '../Data/DataManager';
 
 export class StatsContent extends Component {
   constructor(props) {
@@ -23,13 +23,7 @@ export class StatsContent extends Component {
         dataIndex: 'deaths',
         key: 'deaths',
         sorter: (a, b) => a.deaths - b.deaths
-      },
-      {
-        title: 'Recovered Cases',
-        dataIndex: 'recovered',
-        key: 'recovered',
-        sorter: (a, b) => a.recovered - b.recovered
-      },
+      }
     ];
 
     this.state = {
@@ -37,8 +31,7 @@ export class StatsContent extends Component {
         byCountry: [],
         total: {
           confirmed: {},
-          deaths: {},
-          recovered: {}
+          deaths: {}
         }
       }
     }
@@ -52,8 +45,7 @@ export class StatsContent extends Component {
     const countriesData = Object.values(data.byCountry).map(country => ({
       name: country.name,
       confirmed: country.confirmed.cases,
-      deaths: country.deaths.cases,
-      recovered: country.recovered.cases
+      deaths: country.deaths.cases
     }));
 
     this.setState({ data: { byCountry: countriesData, total: data.total } })
@@ -84,7 +76,6 @@ export class StatsContent extends Component {
           <div className="statsContainer">
             <Statistic title="Confirmed" value={this.state.data.total.confirmed.cases} />
             <Statistic title="Deaths" value={this.state.data.total.deaths.cases} />
-            <Statistic title="Recovered" value={this.state.data.total.recovered.cases} />
             <Statistic className="updateTime" title="Last Updated" value={this.parseDate(this.state.data.total.confirmed.updated)} />
           </div>
         </Card>

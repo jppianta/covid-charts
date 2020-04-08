@@ -1,0 +1,14 @@
+.mainContainer {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  overflow-y: auto;
+
+  .mainContent {
+    flex: 1;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+}

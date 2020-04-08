@@ -21,8 +21,7 @@ export class BarCasesChart extends Component {
     return data.map(country => ({
       name: country.name,
       confirmed: country.confirmed.cases,
-      deaths: country.deaths.cases,
-      recovered: country.recovered.cases
+      deaths: country.deaths.cases
     }));
   }
 
@@ -33,7 +32,7 @@ export class BarCasesChart extends Component {
 
     dv.transform({
       type: 'fold',
-      fields: ['confirmed', 'deaths', 'recovered'],
+      fields: ['confirmed', 'deaths'],
       key: 'country',
       value: 'cases',
       retains: ['name']
@@ -66,7 +65,7 @@ export class BarCasesChart extends Component {
     const dv = ds.createView().source(this.parseData(this.props.data));
     dv.transform({
       type: 'fold',
-      fields: ['confirmed', 'deaths', 'recovered'],
+      fields: ['confirmed', 'deaths'],
       key: 'country',
       value: 'cases',
       retains: ['name']

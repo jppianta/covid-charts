@@ -1,0 +1,49 @@
+.statsContent {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+
+  .countriesRow {
+    flex: 1;
+    gap: 10px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    .topCountries {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .countriesTableContainer .ant-card-body {
+      padding: 0;
+
+      .countriesTable {
+        max-height: 450px;
+        overflow-y: auto;
+        border-radius: 16px;
+        flex: 1;
+      }
+    }
+  }
+
+  .statsContainer {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media only screen and (max-width: 700px) {
+    .updateTime .ant-statistic-content-value {
+      font-size: 18px;
+    }
+
+    .countriesRow {
+      grid-template-columns: 1fr;
+    }
+
+    .statsContainer {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
