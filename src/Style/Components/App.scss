@@ -40,6 +40,8 @@ code {
 
 .container {
   flex: 1;
+  min-height: 400px;
+  display: flex;
 }
 
 .spinner-container {

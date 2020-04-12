@@ -16,6 +16,7 @@ class DataManager {
 
   async pullData() {
     const covidData = await apiService.getLocations();
+    console.log(covidData);
     this.data.byCountry = this.parseDataByCountry(covidData);
     this.data.total = this.getTotalData(covidData);
     this.listeners.forEach(callback => callback(this.data));
@@ -34,6 +35,7 @@ class DataManager {
         countries[countryName] = {
           name: countryName,
           coordinates: country.coordinates,
+          code: country.country_code,
           updated: country.last_updated,
           confirmed: { provinces: {}, cases: 0, history: {} },
           deaths: { provinces: {}, cases: 0, history: {} },

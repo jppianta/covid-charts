@@ -26,6 +26,10 @@
     grid-gap: 10px;
   }
 
+  .l7-control-logo {
+    visibility: hidden;
+  }
+
   @media only screen and (max-width: 700px) {
     .chartsContainer {
       grid-template-columns: 1fr;

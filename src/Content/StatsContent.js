@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Statistic, Card, Table } from 'antd';
 import { dataManager } from '../Data/DataManager';
+import { WorldChart } from '../Charts/WorldChart';
+import covidLogo from '../Assets/Covid-19-Charts.png';
 
 export class StatsContent extends Component {
   constructor(props) {
@@ -10,7 +12,13 @@ export class StatsContent extends Component {
       {
         title: 'Name',
         dataIndex: 'name',
-        key: 'name'
+        key: 'name',
+        render: name => (
+          <div className="tableName">
+            <img alt={name} src={`https://www.countryflags.io/${dataManager.data.byCountry[name].code}/flat/24.png`} />
+            <span>{name}</span>
+          </div>
+        )
       },
       {
         title: 'Confirmed Cases',
@@ -47,21 +55,17 @@ export class StatsContent extends Component {
       confirmed: country.confirmed.cases,
       deaths: country.deaths.cases
     }));
-
+    countriesData.sort((a, b) => b.confirmed - a.confirmed);
     this.setState({ data: { byCountry: countriesData, total: data.total } })
-  }
-
-  getTop6(data) {
-    data.sort((a, b) => b.confirmed - a.confirmed);
-    return data.slice(0, 6);
   }
 
   parseDate(date) {
     date = new Date(date);
-    return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()} ${this.parseTime(date)}`
+    return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
   }
 
   parseTime(date) {
+    date = new Date(date);
     function add0(time) {
       time = String(time);
       return time.length === 1 ? "0" + time : time
@@ -72,14 +76,41 @@ export class StatsContent extends Component {
   render() {
     return (
       <div className="statsContent">
+        <div className="header">
+          <div className="logoContainer">
+            <img className="header-title" src={covidLogo} alt="Covid Logo" />
+          </div>
+          <Statistic
+            title="Last Updated"
+            value={this.parseDate(dataManager.data.total.confirmed.updated)}
+            suffix={this.parseTime(dataManager.data.total.confirmed.updated)}
+          />
+        </div>
         <Card size="small" title="Global Stats">
           <div className="statsContainer">
-            <Statistic title="Confirmed" value={this.state.data.total.confirmed.cases} />
-            <Statistic title="Deaths" value={this.state.data.total.deaths.cases} />
-            <Statistic className="updateTime" title="Last Updated" value={this.parseDate(this.state.data.total.confirmed.updated)} />
+            <Statistic
+              title="Confirmed"
+              className="blue start"
+              value={this.state.data.total.confirmed.cases}
+            />
+            <Statistic
+              title="Deaths" 
+              className="cyan mid"
+              value={this.state.data.total.deaths.cases}
+            />
+            <Statistic
+              title="Death Rate"
+              className="red end"
+              value={(this.state.data.total.deaths.cases / this.state.data.total.confirmed.cases) * 100}
+              precision={2}
+              suffix='%'
+            />
           </div>
         </Card>
         <div className="countriesRow">
+          <Card title="World" size="small">
+            <WorldChart />
+          </Card>
           <Card className="countriesTableContainer" size="small" title="Cases by Country">
             <Table
               className="countriesTable"
@@ -88,15 +119,6 @@ export class StatsContent extends Component {
               pagination={false}
               size="middle"
             />
-          </Card>
-          <Card size="small" title="Countries with most Confirmed Cases" >
-            <div className="topCountries">
-              {
-                this.getTop6(this.state.data.byCountry).map(country =>
-                  <Statistic key={country.name} title={country.name} value={country.confirmed} />
-                )
-              }
-            </div>
           </Card>
         </div>
       </div>

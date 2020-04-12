@@ -12,8 +12,8 @@ export class LogEvolutionChart extends Component {
   }
 
   updateChartSize = () => {
-    const element = document.getElementById('containerLogEvolution')
-    this.chart.changeSize(element.offsetWidth - 10, element.offsetHeight >= 400 ? element.offsetHeight - 10 : 400)
+    const element = document.getElementById('containerLogEvolution');
+    this.chart.changeSize(element.offsetWidth - 10, element.offsetHeight >= 400 ? element.offsetHeight - 10 : 400);
   }
 
   parseData(data) {

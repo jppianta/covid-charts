@@ -3,17 +3,57 @@
   gap: 10px;
   flex-direction: column;
 
+  & > .header {
+    background: unset;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    .logoContainer {
+      height: 128px;
+
+      .header-title {
+        height: 100%;
+      }
+    }
+
+    & > .ant-statistic {
+      justify-self: end;
+    }
+  }
+
+  .tableName {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+
+    & > img {
+      border-radius: 16px;
+    }
+  }
+
+  .blue {
+    .ant-statistic-content > * {
+      color: #096dd9;
+    }
+  }
+
+  .red {
+    .ant-statistic-content > * {
+      color: #ef5350;
+    }
+  }
+
+  .cyan {
+    .ant-statistic-content > * {
+      color: #08979c;
+    }
+  }
+
   .countriesRow {
     flex: 1;
     gap: 10px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-
-    .topCountries {
-      flex: 1;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-    }
 
     .countriesTableContainer .ant-card-body {
       padding: 0;
@@ -21,7 +61,7 @@
       .countriesTable {
         max-height: 450px;
         overflow-y: auto;
-        border-radius: 16px;
+        border-radius: 0 0 16px 16px;
         flex: 1;
       }
     }
@@ -31,6 +71,22 @@
     flex: 1;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+
+    & > .start {
+      justify-self: start;
+    }
+
+    & > .mid {
+      justify-self: center;
+    }
+
+    & > .end {
+      justify-self: end;
+    }
+
+    & > * {
+      min-width: 200px;
+    }
   }
 
   @media only screen and (max-width: 700px) {
@@ -43,7 +99,39 @@
     }
 
     .statsContainer {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: 1fr;
+
+      & > .start {
+        justify-self: start;
+      }
+  
+      & > .mid {
+        justify-self: start;
+      }
+  
+      & > .end {
+        justify-self: start;
+      }
+    }
+
+    .header {
+      grid-template-columns: 1fr;
+
+      .logoContainer {
+        height: 84px;
+      }
+
+      & > * {
+        justify-self: center;
+      }
+
+      & > .ant-statistic {
+        justify-self: center;
+
+        & > .ant-statistic-content {
+          font-size: 16px;
+        }
+      }
     }
   }
 }
